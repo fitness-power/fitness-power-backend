@@ -56,9 +56,9 @@ export class OrderService {
     );
   }
 
-  async handleStripeWebhook(event: any): Promise<Order> {
+  async handleStripeWebhook(body: any, sig: any): Promise<Order> {
     const { userId, totalPrice, products } =
-      await this.stripeService.handleWebhook(event);
+      await this.stripeService.handleWebhook(body, sig);
     const createdOrder = new this.orderModel({
       userId,
       amount: totalPrice,
