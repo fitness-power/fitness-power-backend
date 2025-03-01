@@ -9,11 +9,10 @@ import {
   Query,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
-import CreateProductDto from './dto/create-Product.dto';
-import UpdateProductDto from './dto/update-Product.dto';
+import CreateProductDto from './dto/create-product.dto';
+import UpdateProductDto from './dto/update-product.dto';
 import { Public } from 'src/decorator/public.decorator';
 import { Roles } from 'src/decorator/role.decorator';
-import user from 'src/decorator/user.decorator';
 import { File } from 'src/decorator/file.decorator';
 import { plainToInstance } from 'class-transformer';
 import { CustomException } from 'src/exceptions/custom.exception';
