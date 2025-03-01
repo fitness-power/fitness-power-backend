@@ -36,6 +36,10 @@ export class TypesService {
     return Types;
   }
 
+  async findByCategory(category: string): Promise<Types[]> {
+    return this.TypesModel.find({ category }).exec();
+  }
+
   async update(
     id: string,
     data: UpdateTypesDto,

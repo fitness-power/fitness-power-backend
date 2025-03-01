@@ -42,6 +42,11 @@ export class TypesController {
   findOne(@Param() Param: IdParamDto) {
     return this.TypesService.findOne(Param.id);
   }
+  @Public()
+  @Get(':category')
+  findByCategory(@Param('category') category: string) {
+    return this.TypesService.findByCategory(category);
+  }
   @Roles('admin')
   @Put(':id')
   async update(

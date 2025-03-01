@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Category } from './categories.schema';
 import CreateCategoryDto from './dto/create-category.dto';
-import UpdateCategoryDto from './dto/update-Category.dto';
+import UpdateCategoryDto from './dto/update-category.dto';
 import { CustomException } from 'src/exceptions/custom.exception';
 import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 
