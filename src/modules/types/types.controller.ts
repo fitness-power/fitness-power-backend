@@ -43,8 +43,8 @@ export class TypesController {
     return this.TypesService.findOne(Param.id);
   }
   @Public()
-  @Get(':category')
-  findByCategory(@Param('category') category: string) {
+  @Get('category/:id')
+  findByCategory(@Param('id') category: string) {
     return this.TypesService.findByCategory(category);
   }
   @Roles('admin')
