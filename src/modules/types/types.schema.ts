@@ -17,3 +17,7 @@ export class Types {
 }
 
 export const TypesSchema = SchemaFactory.createForClass(Types);
+
+TypesSchema.pre('find', function () {
+  this.populate('category', '_id title');
+});
