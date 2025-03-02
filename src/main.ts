@@ -9,13 +9,15 @@ import { ValidationPipe } from '@nestjs/common';
 import { configDotenv } from 'dotenv';
 import fastifyMultipart from '@fastify/multipart';
 import cors from '@fastify/cors';
-import fastifyRawBody from 'fastify-raw-body';
 
 configDotenv({ path: './src/config/config.env' });
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     new FastifyAdapter(),
+    {
+      rawBody: true,
+    },
   );
   await app.register(cors, {
     origin: [
@@ -30,11 +32,6 @@ async function bootstrap() {
     },
   });
 
-  app.register(fastifyRawBody, {
-    field: 'rawBody',
-    global: false,
-    encoding: false,
-  });
 
   app.useGlobalFilters(new CustomExceptionFilter());
   app.useGlobalPipes(
