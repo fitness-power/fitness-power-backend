@@ -32,6 +32,7 @@ async function bootstrap() {
     },
   });
 
+
   app.useGlobalFilters(new CustomExceptionFilter());
   app.useGlobalPipes(
     new ValidationPipe({
