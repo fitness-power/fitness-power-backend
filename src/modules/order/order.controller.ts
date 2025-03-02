@@ -2,6 +2,7 @@ import { Controller, Post, Body, Param, Req } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { user } from '../../decorator/user.decorator';
 import { FastifyRequest } from 'fastify';
+import { Public } from 'src/decorator/public.decorator';
 
 @Controller('order')
 export class OrderController {
@@ -25,7 +26,7 @@ export class OrderController {
       req.headers.origin || req.headers.referer || 'http://localhost:3000';
     return this.orderService.createCardOrderSession(userId, cartId, originUrl);
   }
-
+  @Public()
   @Post('webhook')
   async handleStripeWebhook(@Req() req: FastifyRequest) {
     const event = req.body;
