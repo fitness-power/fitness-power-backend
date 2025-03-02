@@ -22,8 +22,7 @@ import IdParamDto from 'src/validations/id-param.dto';
 @Controller('product')
 export class ProductController {
   constructor(private readonly ProductService: ProductService) {}
-  // @Roles('admin')
-  @Public()
+  @Roles('admin')
   @Post()
   async create(@Req() req: Request, @File() file: Buffer) {
     if (!file) throw new CustomException('File not found', 404);
