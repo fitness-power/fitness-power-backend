@@ -30,6 +30,6 @@ export const CartSchema = SchemaFactory.createForClass(Cart);
 CartSchema.pre('findOne', function () {
   this.populate({
     path: 'products.item',
-    select: '_id title price',
+    select: '_id title price image',
   });
 });
