@@ -25,7 +25,7 @@ export class OrderService {
 
     const createdOrder = new this.orderModel({
       userId,
-      amount: cart.totalPrice,
+      amount: cart.totalPrice.toFixed(2),
       products: cart.products,
       paymentType: 'cash',
       isDelivered: false,
@@ -47,7 +47,6 @@ export class OrderService {
     if (!cart) {
       throw new CustomException('Cart not found', 404);
     }
-
     return this.stripeService.createCheckoutSession(
       userId,
       cart.products,

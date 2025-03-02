@@ -77,8 +77,8 @@ export class CartService {
     return cart.save();
   }
 
-  async remove(id: string, userId: mongoose.Schema.Types.ObjectId) {
-    const data = await this.cartModel.findByIdAndDelete(id).exec();
+  async remove(userId: mongoose.Schema.Types.ObjectId) {
+    const data = await this.cartModel.findOneAndDelete({ userId }).exec();
     if (!data) {
       throw new CustomException('cart not found', 404);
     }
@@ -92,7 +92,7 @@ export class CartService {
     productId: string,
     userId: mongoose.Schema.Types.ObjectId,
   ) {
-    const data = await this.cartModel.findById({ userId });
+    const data = await this.cartModel.findOne({ userId });
     if (!data) {
       throw new NotFoundException(`Cart not found`);
     }
@@ -101,22 +101,21 @@ export class CartService {
       return item._id?.toString() !== productId;
     });
     data.totalPrice = await this.calculateTotalPrice(data.products);
+    if (data.totalPrice <= 0) {
+      await this.remove(userId);
+    }
     await data.save();
     return { message: 'products removed successfully' };
   }
 
   async updateQuantity(
-    cartId: string,
     productId: string,
     quantity: number,
     userId: mongoose.Schema.Types.ObjectId,
   ): Promise<Cart> {
-    const cart = await this.cartModel.findById(cartId);
+    const cart = await this.cartModel.findOne({ userId });
     if (!cart) {
-      throw new NotFoundException(`Cart with ID ${cartId} not found`);
-    }
-    if (userId.toString() !== cart.userId.toString()) {
-      throw new CustomException('unauthorized', 401);
+      throw new NotFoundException(`Cart not found`);
     }
     const product = cart.products.find((p) => {
       const item = p.item as any;

@@ -6,7 +6,6 @@ import {
   Param,
   Delete,
   Put,
-  Patch,
 } from '@nestjs/common';
 import { CartService } from './cart.service';
 import CreateCartDto from './dto/create-cart.dto';
@@ -39,14 +38,11 @@ export class CartController {
     return this.cartService.update(id, updateCartDto);
   }
 
-  @Delete(':id')
-  remove(
-    @Param('id') id: string,
-    @user('_id') userId: mongoose.Schema.Types.ObjectId,
-  ) {
-    return this.cartService.remove(id, userId);
+  @Delete()
+  remove(@user('_id') userId: mongoose.Schema.Types.ObjectId) {
+    return this.cartService.remove(userId);
   }
-  @Delete(':/product/:productId')
+  @Delete('/product/:productId')
   removeProduct(
     @Param('productId') productId: string,
     @user('_id') userId: mongoose.Schema.Types.ObjectId,
@@ -54,13 +50,12 @@ export class CartController {
     return this.cartService.removeProduct(productId, userId);
   }
 
-  @Patch(':cartId/product/:productId/quantity')
+  @Put('quantity/:productId/')
   updateQuantity(
-    @Param('cartId') cartId: string,
     @Param('productId') productId: string,
     @user('_id') userId: mongoose.Schema.Types.ObjectId,
     @Body('quantity') quantity: number,
   ) {
-    return this.cartService.updateQuantity(cartId, productId, quantity, userId);
+    return this.cartService.updateQuantity(productId, quantity, userId);
   }
 }

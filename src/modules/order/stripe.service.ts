@@ -28,11 +28,11 @@ export class StripeService {
       payment_method_types: ['card'],
       line_items: products.map((product) => ({
         price_data: {
-          currency: 'egp',
+          currency: 'usd',
           product_data: {
             name: product.item.title,
           },
-          unit_amount: product.item.price * 100,
+          unit_amount: Math.round(product.item.price * 100),
         },
         quantity: product.quantity,
       })),
@@ -41,7 +41,7 @@ export class StripeService {
       cancel_url: cancelUrl,
       metadata: {
         userId,
-        totalPrice,
+        totalPrice: totalPrice.toFixed(),
         products: JSON.stringify(products),
       },
     });
