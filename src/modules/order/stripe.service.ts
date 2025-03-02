@@ -1,4 +1,4 @@
-import { Injectable, RawBodyRequest } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { CustomException } from 'src/exceptions/custom.exception';
 import { Stripe } from 'stripe';
@@ -49,11 +49,10 @@ export class StripeService {
     return session.url;
   }
 
-  async handleWebhook(req: RawBodyRequest<FastifyRequest>) {
-    const sig = req.headers['stripe-signature'];
+  async handleWebhook(body: any, sig: any) {
     try {
       const event = await this.stripe.webhooks.constructEvent(
-        req.rawBody,
+        body,
         sig,
         this.configService.get('WEBHOOK'),
       );
