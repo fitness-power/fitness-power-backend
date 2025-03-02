@@ -1,4 +1,11 @@
-import { Controller, Post, Body, Param, Req } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Param,
+  Req,
+  RawBodyRequest,
+} from '@nestjs/common';
 import { OrderService } from './order.service';
 import { user } from '../../decorator/user.decorator';
 import { FastifyRequest } from 'fastify';
@@ -28,8 +35,8 @@ export class OrderController {
   }
   @Public()
   @Post('webhook')
-  async handleStripeWebhook(@Req() req: FastifyRequest) {
-    const event = req.body;
+  async handleStripeWebhook(req: RawBodyRequest<FastifyRequest>) {
+    const event = req.rawBody;
     const sig = req.headers['stripe-signature'];
     return this.orderService.handleStripeWebhook(event, sig);
   }
