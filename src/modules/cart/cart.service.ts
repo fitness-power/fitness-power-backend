@@ -89,23 +89,20 @@ export class CartService {
   }
 
   async removeProduct(
-    cartId: string,
     productId: string,
     userId: mongoose.Schema.Types.ObjectId,
-  ): Promise<Cart> {
-    const data = await this.cartModel.findById(cartId);
+  ) {
+    const data = await this.cartModel.findById({ userId });
     if (!data) {
       throw new NotFoundException(`Cart not found`);
-    }
-    if (userId.toString() !== data.userId.toString()) {
-      throw new CustomException('unauthorized', 401);
     }
     data.products = data.products.filter((p) => {
       const item = p.item as any;
       return item._id?.toString() !== productId;
     });
     data.totalPrice = await this.calculateTotalPrice(data.products);
-    return data.save();
+    await data.save();
+    return { message: 'products removed successfully' };
   }
 
   async updateQuantity(

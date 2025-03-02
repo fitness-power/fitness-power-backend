@@ -46,13 +46,12 @@ export class CartController {
   ) {
     return this.cartService.remove(id, userId);
   }
-  @Delete(':cartId/product/:productId')
+  @Delete(':/product/:productId')
   removeProduct(
-    @Param('cartId') cartId: string,
     @Param('productId') productId: string,
     @user('_id') userId: mongoose.Schema.Types.ObjectId,
   ) {
-    return this.cartService.removeProduct(cartId, productId, userId);
+    return this.cartService.removeProduct(productId, userId);
   }
 
   @Patch(':cartId/product/:productId/quantity')
