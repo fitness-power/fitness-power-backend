@@ -33,9 +33,7 @@ async function bootstrap() {
   app.register(fastifyRawBody, {
     field: 'rawBody',
     global: false,
-    encoding: 'utf8',
-    runFirst: true,
-    routes: [],
+    encoding: false,
   });
 
   app.useGlobalFilters(new CustomExceptionFilter());
