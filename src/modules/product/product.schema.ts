@@ -16,7 +16,7 @@ export class Product {
   nv: string;
 
   @Prop({ required: true })
-  price: string;
+  price: number;
 
   @Prop({ required: true })
   image: string;
