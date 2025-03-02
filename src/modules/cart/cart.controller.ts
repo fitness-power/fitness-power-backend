@@ -29,12 +29,9 @@ export class CartController {
     return this.cartService.findAll();
   }
 
-  @Get(':id')
-  findOne(
-    @Param('id') id: string,
-    @user('_id') userId: mongoose.Schema.Types.ObjectId,
-  ) {
-    return this.cartService.findOne(id, userId);
+  @Get('user')
+  findOne(@user('_id') userId: mongoose.Schema.Types.ObjectId) {
+    return this.cartService.findOne(userId);
   }
   @Roles('admin')
   @Put(':id')

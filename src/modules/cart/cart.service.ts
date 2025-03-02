@@ -58,16 +58,10 @@ export class CartService {
     return this.cartModel.find().exec();
   }
 
-  async findOne(
-    id: string,
-    userId: mongoose.Schema.Types.ObjectId,
-  ): Promise<Cart> {
-    const data = await this.cartModel.findById(id).exec();
+  async findOne(userId: mongoose.Schema.Types.ObjectId): Promise<Cart> {
+    const data = await this.cartModel.findOne({ userId }).exec();
     if (!data) {
       throw new CustomException('cart not found', 404);
-    }
-    if (userId.toString() !== data.userId.toString()) {
-      throw new CustomException('unauthorized', 401);
     }
     return data;
   }
