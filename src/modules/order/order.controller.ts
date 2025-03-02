@@ -36,7 +36,7 @@ export class OrderController {
   @Public()
   @Post('webhook')
   async handleStripeWebhook(req: RawBodyRequest<FastifyRequest>) {
-    const event = req.rawBody;
+    const event = req.rawBody.toString();
     const sig = req.headers['stripe-signature'];
     return this.orderService.handleStripeWebhook(event, sig);
   }

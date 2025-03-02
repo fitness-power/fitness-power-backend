@@ -9,6 +9,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { configDotenv } from 'dotenv';
 import fastifyMultipart from '@fastify/multipart';
 import cors from '@fastify/cors';
+import fastifyRawBody from 'fastify-raw-body';
 
 configDotenv({ path: './src/config/config.env' });
 async function bootstrap() {
@@ -28,6 +29,15 @@ async function bootstrap() {
       fileSize: 1024 * 1024 * Number(process.env.MAX_FILE_SIZE),
     },
   });
+
+  app.register(fastifyRawBody, {
+    field: 'rawBody',
+    global: false,
+    encoding: 'utf8',
+    runFirst: true,
+    routes: [],
+  });
+
   app.useGlobalFilters(new CustomExceptionFilter());
   app.useGlobalPipes(
     new ValidationPipe({
