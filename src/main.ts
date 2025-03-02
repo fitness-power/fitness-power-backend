@@ -18,6 +18,7 @@ async function bootstrap() {
   );
   await app.register(cors, {
     origin: process.env.FRONTEND_URL,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   });
   await app.register(fastifyMultipart, {
     limits: {
