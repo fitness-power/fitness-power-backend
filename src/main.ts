@@ -17,7 +17,10 @@ async function bootstrap() {
     new FastifyAdapter(),
   );
   await app.register(cors, {
-    origin: process.env.FRONTEND_URL,
+    origin: [
+      process.env.FRONTEND_URL,
+      'https://egypt-tours-backend.onrender.com',
+    ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   });
   await app.register(fastifyMultipart, {
