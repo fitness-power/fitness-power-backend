@@ -10,7 +10,7 @@ export default class CreateProductDto {
   brand: string;
   @Expose()
   @IsNotEmpty({ message: 'Product Nutritional value is required' })
-  nv: number;
+  nv: string;
   @Expose()
   @IsNotEmpty({ message: 'Product type is required' })
   type: string;
