@@ -1,12 +1,13 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { HydratedDocument } from 'mongoose';
-import { Product } from '../product/product.schema';
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import mongoose, { HydratedDocument } from "mongoose";
+import { Product } from "../product/product.schema";
+import { User } from "../auth/auth.schema";
 
 export type OrderDocument = HydratedDocument<Order>;
 
 @Schema()
 export class Order {
-  @Prop({ required: true })
+  @Prop({ required: true, ref: User.name })
   userId: string;
 
   @Prop({ required: true })

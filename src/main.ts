@@ -15,9 +15,6 @@ async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     new FastifyAdapter(),
-    {
-      rawBody: true,
-    },
   );
   await app.register(cors, {
     origin: [
@@ -31,8 +28,6 @@ async function bootstrap() {
       fileSize: 1024 * 1024 * Number(process.env.MAX_FILE_SIZE),
     },
   });
-
-
   app.useGlobalFilters(new CustomExceptionFilter());
   app.useGlobalPipes(
     new ValidationPipe({
