@@ -19,6 +19,7 @@ async function bootstrap() {
   await app.register(cors, {
     origin: [
       process.env.FRONTEND_URL,
+      'http://localhost:5500',
       'https://egypt-tours-backend.onrender.com',
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
